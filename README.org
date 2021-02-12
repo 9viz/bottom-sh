@@ -1,4 +1,4 @@
-#TITLE: Bottom sh
+#+TITLE: Bottom sh
 Bottom encoder and decoder in sh
 * Usage
 #+begin_src sh

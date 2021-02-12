@@ -21,20 +21,20 @@ while read -r l; do
 				continue
 			}
 			case $n in
-				0) ;;
-				1)
-					printf "\\$(printf '%o' "$sum")"
-					sum=0
-					;;
-				2)
-					printf '\0'
-					sum=0
-					;;
-				3) : $((sum+=200)) ;;
-				4) : $((sum+=50))  ;;
-				5) : $((sum+=10))  ;;
-				6) : $((sum+=5))   ;;
-				7) : $((sum+=1))   ;;
+			0) ;;
+			1)
+				printf "\\$(printf '%o' "$sum")"
+				sum=0
+				;;
+			2)
+				printf '\0'
+				sum=0
+				;;
+			3) : $((sum+=200)) ;;
+			4) : $((sum+=50))  ;;
+			5) : $((sum+=10))  ;;
+			6) : $((sum+=5))   ;;
+			7) : $((sum+=1))   ;;
 			esac
 			: $((n+=1))
 			l="${l#"$i"}"

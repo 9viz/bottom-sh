@@ -18,42 +18,41 @@ while read -r l; do
 		buf="$buf$char"
 
 		case $buf in
-			"$i0")
-				printf '\0'
-				l="${l#?}"
-				sum=0
-				buf=''
-				return
-				# continue
-				;;
-			"$i200")
-				buf=
-				: $((sum+=200))
-				;;
-			"$i50")
-				buf=
-				: $((sum+=50))
-				;;
-			"$i10")
-				buf=
-				: $((sum+=10))
-				;;
-			"$i5")
-				buf=
-				: $((sum+=5))
-				;;
-			"$i1")
-				buf=
-				: $((sum+=1))
-				;;
-			"$bss")
-				printf "\\$(printf '%o' "$sum")"
-				sum=0
-				buf=
-				;;
-			"$bse")
-				buf=
-				;;
+		"$i0")
+			printf '\0'
+			l="${l#?}"
+			sum=0
+			buf=''
+			continue
+			;;
+		"$i200")
+			buf=
+			: $((sum+=200))
+			;;
+		"$i50")
+			buf=
+			: $((sum+=50))
+			;;
+		"$i10")
+			buf=
+			: $((sum+=10))
+			;;
+		"$i5")
+			buf=
+			: $((sum+=5))
+			;;
+		"$i1")
+			buf=
+			: $((sum+=1))
+			;;
+		"$bss")
+			printf "\\$(printf '%o' "$sum")"
+			sum=0
+			buf=
+			;;
+		"$bse")
+			buf=
+			;;
 		esac
 		l="${l#?}"
 	done
