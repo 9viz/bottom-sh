@@ -1,0 +1,19 @@
+#TITLE: Bottom sh
+Bottom encoder and decoder in sh
+* Usage
+#+begin_src sh
+# Encode and decode in a single pipeline
+echo "Hello, 世界!" | ./encode | ./decode
+# Hello, 世界!
+
+# Encode and save to file
+echo "Hello, world" | ./encode >file
+
+# Decode from file
+./decode <file
+#+end_src
+
+You can either use ~decode-buf~ or ~decode-checkchar~. Both of them seem
+equally fast. ~decode~ and ~decode-buf~ are the same.
+* Caveats
+The input to ~encode~ and ~decode~ /must/ end with a newline.

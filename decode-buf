@@ -1,0 +1,60 @@
+#!/bin/sh
+# Waits until a complete unicode character is constructed before
+# decoding
+
+i200='🫂'
+i50='💖'
+i10='✨'
+i5='🥺'
+i1=','
+i0='❤️'
+bss='👉'
+bse='👈'
+
+sum=0
+while read -r l; do
+	while [ -n "$l" ]; do
+		char="${l%"${l#?}"}"
+		buf="$buf$char"
+
+		case $buf in
+			"$i0")
+				printf '\0'
+				l="${l#?}"
+				sum=0
+				buf=''
+				return
+				# continue
+				;;
+			"$i200")
+				buf=
+				: $((sum+=200))
+				;;
+			"$i50")
+				buf=
+				: $((sum+=50))
+				;;
+			"$i10")
+				buf=
+				: $((sum+=10))
+				;;
+			"$i5")
+				buf=
+				: $((sum+=5))
+				;;
+			"$i1")
+				buf=
+				: $((sum+=1))
+				;;
+			"$bss")
+				printf "\\$(printf '%o' "$sum")"
+				sum=0
+				buf=
+				;;
+			"$bse")
+				buf=
+				;;
+		esac
+		l="${l#?}"
+	done
+done

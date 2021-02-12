@@ -1,0 +1,47 @@
+#!/bin/sh
+
+i200='🫂'
+i50='💖'
+i10='✨'
+i5='🥺'
+i1=','
+i0='❤️'
+bs='👉👈'
+
+while read -r l; do
+	l="$l
+"
+	while [ -n "$l" ]; do
+		char="${l%"${l#?}"}"
+		codepoint="$(printf '%d' "'$char")"
+
+		# Deal with NULL byte first
+		[ "$codepoint" -eq 0 ] && {
+			printf '%s' "$i0"
+			l="${l#?}"
+			continue
+		}
+
+		while [ "$codepoint" -gt 0 ]; do
+			if [ "$codepoint" -ge 200 ]; then
+				printf '%s' "$i200"
+				: $((codepoint-=200))
+			elif [ "$codepoint" -ge 50 ]; then
+				printf '%s' "$i50"
+				: $((codepoint-=50))
+			elif [ "$codepoint" -ge 10 ]; then
+				printf '%s' "$i10"
+				: $((codepoint-=10))
+			elif [ "$codepoint" -ge 5 ]; then
+				printf '%s' "$i5"
+				: $((codepoint-=5))
+			elif [ "$codepoint" -ge 1 ]; then
+				printf '%s' "$i1"
+				: $((codepoint-=1))
+			fi
+		done
+		printf '%s' "$bs"
+		l="${l#?}"
+	done
+done
+printf '\n'

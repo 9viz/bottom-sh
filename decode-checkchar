@@ -1,0 +1,44 @@
+#!/bin/sh
+# Look for correct character and decode
+
+i200='🫂'
+i50='💖'
+i10='✨'
+i5='🥺'
+i1=','
+i0='❤️'
+bss='👉'
+bse='👈'
+sum=0
+
+while read -r l; do
+	while [ -n "$l" ]; do
+		n=0
+		for i in "$bse" "$bss" "$i0" "$i200" "$i50" "$i10" \
+						"$i5" "$i1"; do
+			[ "${l%"${l#"$i"}"}" != "$i" ] && {
+				: $((n+=1))
+				continue
+			}
+			case $n in
+				0) ;;
+				1)
+					printf "\\$(printf '%o' "$sum")"
+					sum=0
+					;;
+				2)
+					printf '\0'
+					sum=0
+					;;
+				3) : $((sum+=200)) ;;
+				4) : $((sum+=50))  ;;
+				5) : $((sum+=10))  ;;
+				6) : $((sum+=5))   ;;
+				7) : $((sum+=1))   ;;
+			esac
+			: $((n+=1))
+			l="${l#"$i"}"
+			break
+		done
+	done
+done
