@@ -8,7 +8,7 @@ i1=','
 i0='❤️'
 bs='👉👈'
 
-while read -r l; do
+while read -r l || [ -n "$l" ]; do
 	l="$l
 "
 	while [ -n "$l" ]; do
