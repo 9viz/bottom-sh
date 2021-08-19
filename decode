@@ -81,7 +81,7 @@ ch() {
 }
 
 sum=0
-while read -r l; do
+while read -r l || [ -n "$l" ]; do
 	while [ -n "$l" ]; do
 		buf
 	done
